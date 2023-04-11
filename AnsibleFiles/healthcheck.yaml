@@ -4,7 +4,7 @@
   become_method: sudo
   tasks:
     - name: "Show Network Interfaces"
-      command: hostname -I
+      command: date
       register: details
     - name: 'Get Interfaces details'
       debug:
