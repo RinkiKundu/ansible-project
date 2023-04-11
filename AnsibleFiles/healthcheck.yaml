@@ -2,7 +2,7 @@
 
 - name: Check host health
 
-  hosts: localhost
+  hosts: 172.31.43.29
 
   become: true
 
