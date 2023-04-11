@@ -4,7 +4,7 @@
   become_method: sudo
   tasks:
     - name: "Show Network Interfaces"
-      command: ifconfig
+      command: hostname -I
       register: details
     - name: 'Get Interfaces details'
       debug:
