@@ -1,0 +1,5 @@
+- name: Vitals
+  hosts: localhost
+  tasks:
+    - name: Get uptime of localhost
+      shell: uptime -p
