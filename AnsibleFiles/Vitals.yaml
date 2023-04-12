@@ -3,3 +3,8 @@
   tasks:
     - name: Get uptime of localhost
       shell: uptime -p
+      register: uptime
+    - name: Reporting
+      copy:
+        content: "{{ inventory_hostname }},{{ uptime.stdout }}"
+        dest: "/root/ansible/ansible-project/AnsibleFiles/uptime.csv"
