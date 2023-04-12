@@ -11,6 +11,7 @@
     - name: Disk Space
       shell: "df -h / | awk 'NR==2{print $5}'"
       register: diskSpace
+    - name: Reporting
       copy:
         content: "{{ inventory_hostname }},{{ diskSpace.stdout }}"
         dest: "/root/ansible/ansible-project/AnsibleFiles/uptime.csv"
