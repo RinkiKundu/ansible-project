@@ -8,3 +8,6 @@
       copy:
         content: "{{ inventory_hostname }},{{ uptime.stdout }}"
         dest: "/root/ansible/ansible-project/AnsibleFiles/uptime.csv"
+    - name: Disk Space
+      shell: "df -h / | awk 'NR==2{print $5}'"
+      register: diskSpace
