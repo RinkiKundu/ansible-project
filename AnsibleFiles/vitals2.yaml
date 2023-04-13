@@ -1,14 +1,14 @@
 - name: Vitals
-  hosts: localhost
+  hosts: all
   vars:
     csvPath: /root/ansible/ansible-project/AnsibleFiles/
     csvFileName: vitals.csv
-    headers: Hostname, Uptime, CPU_Usage, Memory_Usage
+    headers: IpAddress, Uptime, CPU_Usage, Memory_Usage
 
   tasks:
-  - name: Get Hostname
-    shell: "hostname"
-    register: hostname
+  - name: Get IP Address
+    shell: "hostname -I"
+    register: ipAddress
   - name: Get uptime
     shell: uptime -p
     register: uptime
@@ -30,7 +30,7 @@
   - name: Build out CSV file
     ansible.builtin.lineinfile:
       dest: "{{ csvPath }}/{{ csvFileName }}"
-      line: "{{ hostname.stdout }},{{ uptime.stdout }},{{ CPU_Usage.stdout }},{{ Memory_Usage.stdout }}"
+      line: "{{ ipAddress.stdout }},{{ uptime.stdout }},{{ CPU_Usage.stdout }},{{ Memory_Usage.stdout }}"
       create: true
       state: present
     delegate_to: localhost
