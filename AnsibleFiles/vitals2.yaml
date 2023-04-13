@@ -1,0 +1,20 @@
+- name: Vitals
+  hosts: localhost
+  vars:
+    csvPath: /root/ansible/ansible-project/AnsibleFiles/
+    csvFileName: vitals.csv
+    headers: Hostname, Uptime, CPU_Usage, Memory_Usage
+
+  tasks:
+  - name: Get Hostname
+    shell: "Hostname"
+    register: Hostnam
+  - name: Get uptime
+    shell: uptime -p
+    register: uptime
+  - name: Get CPU_Usage
+    shell: "top -bn1 | grep 'Cpu(s)' | sed 's/.*, *\\([0-9.]*\\)%* id.*/\\1/'"
+    register: CPU_Usage
+  - name: Get Memory_Usage
+    shell: "free -m | awk 'NR==2{printf \"%.2f%%\", $3*100/$2 }'"
+    register: Memory_Usage
