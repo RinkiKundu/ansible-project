@@ -1,5 +1,5 @@
 - name: Vitals
-  hosts: all
+  hosts: webservers
   vars:
     csvPath: /root/ansible/ansible-project/AnsibleFiles/
     csvFileName: vitals.csv
