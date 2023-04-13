@@ -8,7 +8,7 @@
   tasks:
   - name: Get Hostname
     shell: "hostname"
-    register: Hostnam
+    register: hostnam
   - name: Get uptime
     shell: uptime -p
     register: uptime
@@ -18,3 +18,26 @@
   - name: Get Memory_Usage
     shell: "free -m | awk 'NR==2{printf \"%.2f%%\", $3*100/$2 }'"
     register: Memory_Usage
+  - name: Save CSV headers
+    ansible.builtin.lineinfile:
+      dest: "{{ csvPath }}/{{ csvFileName }}"
+      line: "{{ headers }}"
+      create: true
+      state: present
+    delegate_to: localhost
+    run_once: true
+
+  - name: Build out CSV file
+    ansible.builtin.lineinfile:
+      dest: "{{ csvPath }}/{{ csvFileName }}"
+      line: "{{ hostname.stdout }},{{ uptime.stdout }},{{ CPU_Usage.stdout }},{{ Memory_Usage.stdout }}"
+      create: true
+      state: present
+    delegate_to: localhost
+  - name: Read in CSV to variable
+    community.general.read_csv:
+      path: "{{ csvPath }}/{{ csvFileName }}"
+    register: csv_file
+    delegate_to: localhost
+    run_once: true
+ 
