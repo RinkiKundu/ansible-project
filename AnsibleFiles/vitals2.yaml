@@ -8,7 +8,7 @@
   tasks:
   - name: Get Hostname
     shell: "hostname"
-    register: hostnam
+    register: hostname
   - name: Get uptime
     shell: uptime -p
     register: uptime
