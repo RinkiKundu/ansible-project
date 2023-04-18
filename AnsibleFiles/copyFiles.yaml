@@ -1,0 +1,13 @@
+- name: copy files
+  hosts: all
+  become: true
+  become_method: sudo
+  tasks:
+    - name: copy
+      copy:
+        src: "{{ item }}"
+        dest: /home/ubuntu
+      with_fileglob:
+        - /home/ubuntu/playbooks/sample.txt
+        - /home/ubuntu/playbooks/sample1.txt
+        - /home/ubuntu/playbooks/sample2.txt
